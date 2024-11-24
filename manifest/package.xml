@@ -5,6 +5,8 @@
         <members>WarehouseSyncSchedule</members>
         <members>WarehouseSyncScheduleTest</members>
         <members>MaintenanceRequestHelperTest</members>
+        <members>WarehouseCalloutServiceMock</members>
+        <members>WarehouseCalloutServiceTest</members>
         <name>ApexClass</name>
     </types>
     <types>

@@ -2,10 +2,9 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>*</members>
+        <members>MaintenanceRequestHelperTest</members>
         <members>WarehouseSyncSchedule</members>
         <members>WarehouseSyncScheduleTest</members>
-        <members>MaintenanceRequestHelperTest</members>
-        <members>WarehouseCalloutServiceMock</members>
         <members>WarehouseCalloutServiceTest</members>
         <name>ApexClass</name>
     </types>
@@ -34,7 +33,8 @@
         <name>LightningComponentBundle</name>
     </types>
     <types>
-        <members>*</members>
+        <members>GetEquipmentToUpsert</members>
+        <members>FailGetEquipmentToUpsert</members>
         <name>StaticResource</name>
     </types>
     <version>62.0</version>

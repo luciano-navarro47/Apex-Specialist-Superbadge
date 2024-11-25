@@ -1,4 +1,4 @@
-public with sharing class WarehouseCalloutService implements Queueable, Database.AllowsCallouts{
+public with sharing class WarehouseCalloutService implements Queueable, Database.AllowsCallouts {
 
     // External system URL
     private static final String WAREHOUSE_URL = 'https://th-superbadge-apex.herokuapp.com/equipment';
@@ -12,13 +12,12 @@ public with sharing class WarehouseCalloutService implements Queueable, Database
         req.setEndpoint(WAREHOUSE_URL);
         req.setMethod('GET');
 
-        System.debug('log before try catch');
         try {
             HttpResponse res = http.send(req);
 
-            System.debug('SYSTEM EXTERNAL RES: ' + res.getBody());
-
             if(res != null && res.getStatusCode() == 200){
+                System.debug('STATUS CODE RES: ' + res.getStatusCode());
+                System.debug('RES: ' + res.getBody());
                 List<Product2> equipmentToUpsert = parseWarehouseData(res.getBody());
                 upsertEquipment(equipmentToUpsert);
             } else {
@@ -30,11 +29,10 @@ public with sharing class WarehouseCalloutService implements Queueable, Database
     }
 
     // Method to analize the JSON's data and convert into Salesforce records
+    @TestVisible
     private static List<Product2> parseWarehouseData(String responseBody){
-        System.debug('RESPONSE BODY IN PWD: ' + responseBody);
         List<Product2> equipments = new List<Product2>();
         List<Object> jsonData = (List<Object>) JSON.deserializeUntyped(responseBody);
-        // System.debug('PWD - JSON DATA: ' + jsonData);
 
         for(Object obj : jsonData){
             Map<String,Object> record = (Map<String,Object>) obj;
@@ -50,13 +48,13 @@ public with sharing class WarehouseCalloutService implements Queueable, Database
 
             equipments.add(equipment);
         }
-        System.debug('PRODUCT EQUIPMENTS: ' + equipments);
+
         return equipments;
     }
 
     // Method to upsert the Salesforce records
+    @TestVisible
     private static void upsertEquipment(List<Product2> equipments){
-        System.debug('UPSERT EQUIPMENT METHOD: ' + equipments);
 
         if(!equipments.isEmpty()){
             try {
